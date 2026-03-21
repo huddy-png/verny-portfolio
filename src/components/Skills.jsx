@@ -10,6 +10,9 @@ function Skills() {
     "Git",
     "GitHub",
     "Responsive Design",
+    "java",
+    "c",
+    "c++",
   ];
 
   return (
