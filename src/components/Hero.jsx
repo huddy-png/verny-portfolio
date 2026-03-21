@@ -6,22 +6,23 @@ function Hero() {
           <p className="hero-tag">Full Stack Developer</p>
 
           <h1>
-            Hi, I'm <span>Verny Emillio John</span>
+            I build <span>modern websites and digital systems</span> that help
+            students, professionals and businesses solve real problems.
           </h1>
 
           <p className="hero-description">
-            I build modern, responsive and professional web applications using
-            React and JavaScript. I focus on creating real-world solutions that
-            are useful, scalable and visually clean.
+            From portfolios and landing pages to support platforms and admin
+            systems, I create responsive, professional and functional web
+            solutions that are built for real use.
           </p>
 
           <div className="hero-buttons">
             <a href="#projects" className="btn primary">
-              View Projects
+              View My Work
             </a>
 
             <a href="#contact" className="btn secondary">
-              Contact Me
+              Start a Project
             </a>
 
             <a href="/cv.pdf" className="btn secondary" download>
@@ -31,7 +32,7 @@ function Hero() {
 
           <div className="hero-socials">
             <a
-              href="https://github.com/huddy-png"
+              href="https://github.com/yourusername"
               target="_blank"
               rel="noreferrer"
             >
@@ -39,7 +40,7 @@ function Hero() {
             </a>
 
             <a
-              href="https://linkedin.com/in/verny-emillio-john"
+              href="https://linkedin.com/in/yourusername"
               target="_blank"
               rel="noreferrer"
             >

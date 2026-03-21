@@ -26,18 +26,21 @@ function Contact() {
     setLoading(true);
     setStatus("");
 
-    const { error } = await supabase.from("portfolio_messages").insert([
-      {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-      },
-    ]);
+    try {
+      const { error } = await supabase.from("portfolio_messages").insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        },
+      ]);
 
-    if (error) {
-      setStatus("Something went wrong. Please try again.");
-    } else {
+      if (error) {
+        setStatus("Something went wrong. Please try again.");
+        return;
+      }
+
       setStatus("Message sent successfully.");
       setFormData({
         name: "",
@@ -45,9 +48,12 @@ function Contact() {
         phone: "",
         message: "",
       });
+    } catch (err) {
+      console.error(err);
+      setStatus("Unexpected error. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
