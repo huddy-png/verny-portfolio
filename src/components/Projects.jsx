@@ -1,28 +1,28 @@
 function Projects() {
   const projects = [
     {
-      title: "Personal Portfolio Website",
+      title: "KUCCPS Assist Platform",
       description:
-        "A professional portfolio website built with React to showcase my skills, projects and contact information in a clean modern layout.",
-      tech: "React, JavaScript, CSS",
-      github: "#",
-      live: "#",
+        "A student support platform built to help learners access KUCCPS application guidance, submit bookings, upload required documents, track requests and interact with an admin-managed support workflow.",
+      tech: "HTML, CSS, JavaScript, Supabase, Cloudflare",
+      github: "",
+      live: "https://kuccpsassist.online",
     },
     {
-      title: "Student Support Platform",
+      title: "Personal Portfolio Website",
       description:
-        "A platform concept designed to help students access services, submit requests and track progress through a simple digital experience.",
-      tech: "HTML, CSS, JavaScript",
-      github: "#",
-      live: "https://kuccpsassist.online",
+        "A professional React portfolio built to showcase my skills, projects, contact system and live web development work in a clean modern layout.",
+      tech: "React, JavaScript, CSS, Supabase",
+      github: "",
+      live: "https://vernyjohn.me",
     },
     {
       title: "Business Landing Page",
       description:
-        "A modern landing page designed to help brands present services clearly and build a stronger online presence.",
+        "A modern business website designed to help brands present services clearly, build trust and create a stronger online presence.",
       tech: "React, CSS",
-      github: "#",
-      live: "#",
+      github: "",
+      live: "",
     },
   ];
 
@@ -39,12 +39,17 @@ function Projects() {
               <span>{project.tech}</span>
 
               <div className="project-links">
-                <a href={project.github} target="_blank" rel="noreferrer">
-                  GitHub
-                </a>
-                <a href={project.live} target="_blank" rel="noreferrer">
-                  Live Demo
-                </a>
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noreferrer">
+                    GitHub
+                  </a>
+                )}
+
+                {project.live && (
+                  <a href={project.live} target="_blank" rel="noreferrer">
+                    Live Demo
+                  </a>
+                )}
               </div>
             </div>
           ))}

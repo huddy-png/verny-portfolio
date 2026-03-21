@@ -16,8 +16,9 @@ function About() {
         </p>
 
         <p className="section-text">
-          My goal is to build products that are not only visually professional
-          but also functional, reliable and impactful.
+          I enjoy building products such as student support platforms, personal
+          portfolios, landing pages and admin-managed systems that combine good
+          design with real functionality.
         </p>
       </div>
     </section>
