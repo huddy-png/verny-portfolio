@@ -3,7 +3,7 @@ function Projects() {
     {
       title: "Personal Portfolio Website",
       description:
-        "A professional portfolio website built to showcase my skills, projects and contact information in a clean modern layout.",
+        "A professional portfolio website built with React to showcase my skills, projects and contact information in a clean modern layout.",
       tech: "React, JavaScript, CSS",
       github: "#",
       live: "#",
@@ -11,7 +11,7 @@ function Projects() {
     {
       title: "Student Support Platform",
       description:
-        "A web platform concept designed to help students access services, submit requests and track their progress easily.",
+        "A platform concept designed to help students access services, submit requests and track progress through a simple digital experience.",
       tech: "HTML, CSS, JavaScript",
       github: "#",
       live: "https://kuccpsassist.online",
@@ -19,7 +19,7 @@ function Projects() {
     {
       title: "Business Landing Page",
       description:
-        "A modern business website designed to present services clearly and help brands create a strong online presence.",
+        "A modern landing page designed to help brands present services clearly and build a stronger online presence.",
       tech: "React, CSS",
       github: "#",
       live: "#",
@@ -29,7 +29,7 @@ function Projects() {
   return (
     <section id="projects" className="section">
       <div className="container">
-        <h2 className="section-title">Projects</h2>
+        <h2 className="section-title">Featured Projects</h2>
 
         <div className="projects-grid">
           {projects.map((project, index) => (

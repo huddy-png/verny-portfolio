@@ -1,18 +1,14 @@
-/*map loops through an array and each time it passes the
-              current item into the parameter(skill)*/
-
 function Skills() {
   const skills = [
-    "HTML",
-    "CSS",
+    "HTML5",
+    "CSS3",
     "JavaScript",
-    "React",
-    "Git",
-    "GitHub",
-    "Responsive Design",
     "java",
-    "c",
-    "c++",
+    "React",
+    "Git & GitHub",
+    "Responsive Design",
+    "UI Design",
+    "Frontend Development",
   ];
 
   return (
