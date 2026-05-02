@@ -1,6 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = "https://afneaitepksjyauvhsdi.supabase.co";
-const supabaseAnonKey = "sb_publishable_D7GQlo9z9ZDQmcGZBNww-w_M4kGDklM";
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase =
+	supabaseUrl && supabaseAnonKey
+		? createClient(supabaseUrl, supabaseAnonKey)
+		: null;
+
+if (!supabase) {
+	console.warn("Supabase is not configured. Check VITE_SUPABASE_URL/KEY.");
+}

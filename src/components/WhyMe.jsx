@@ -1,26 +1,51 @@
+import { motion } from "framer-motion";
+
 function WhyMe() {
   const points = [
-    "Clean and responsive design",
-    "Practical solutions for real needs",
-    "Modern frontend and backend workflow",
-    "Direct communication and support",
+    {
+      title: "Clarity & craft",
+      detail: "Design systems that are clean, accessible, and consistent.",
+    },
+    {
+      title: "Business-first execution",
+      detail: "Solutions tied to measurable outcomes and conversions.",
+    },
+    {
+      title: "Modern delivery",
+      detail: "Scalable frontends and production-ready workflows.",
+    },
+    {
+      title: "Direct collaboration",
+      detail: "Transparent updates and fast iteration cycles.",
+    },
   ];
 
   return (
-    <section className="section">
-      <div className="container">
-        <h2 className="section-title">Why Work With Me</h2>
+    <section className="py-24 bg-bg text-foreground">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="mb-10">
+          <p className="text-primary uppercase tracking-wide text-sm">
+            Why work with me
+          </p>
+          <h2 className="text-3xl md:text-4xl font-heading font-bold">
+            A reliable partner for high-impact web delivery
+          </h2>
+          <p className="text-muted mt-3 max-w-2xl">
+            I focus on building digital solutions that are visually refined,
+            scalable, and easy to maintain for the long term.
+          </p>
+        </div>
 
-        <p className="section-text">
-          I focus on building digital solutions that are not only visually
-          professional but also practical, scalable and easy to use.
-        </p>
-
-        <div className="skills-grid">
-          {points.map((point, index) => (
-            <div className="skill-card" key={index}>
-              {point}
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {points.map((point) => (
+            <motion.div
+              key={point.title}
+              whileHover={{ y: -6 }}
+              className="bg-surface/70 border border-border/20 rounded-2xl p-6"
+            >
+              <h3 className="text-lg font-semibold mb-2">{point.title}</h3>
+              <p className="text-muted text-sm">{point.detail}</p>
+            </motion.div>
           ))}
         </div>
       </div>
