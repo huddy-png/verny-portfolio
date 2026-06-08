@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
+import { revealItemVariants } from "../revealVariants";
+import RevealOnScroll from "./RevealOnScroll";
 
 function Process() {
   const steps = [
@@ -22,7 +24,7 @@ function Process() {
 
   return (
     <section className="py-24 bg-bg text-foreground">
-      <div className="max-w-6xl mx-auto px-4">
+      <RevealOnScroll className="max-w-6xl mx-auto px-4" stagger>
         <div className="mb-10">
           <p className="text-primary uppercase tracking-wide text-sm">
             Process
@@ -38,8 +40,9 @@ function Process() {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {steps.map((step, index) => (
-            <motion.div
+            <Motion.div
               key={step.title}
+              variants={revealItemVariants}
               whileHover={{ y: -6 }}
               className="bg-surface/70 border border-border/20 rounded-2xl p-6"
             >
@@ -48,10 +51,10 @@ function Process() {
               </p>
               <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
               <p className="text-muted text-sm">{step.detail}</p>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   );
 }

@@ -1,16 +1,72 @@
-# React + Vite
+# Verny Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio for Verny Emillio John, built as a one-page React site with animated sections, project filtering, and a Supabase-backed contact form.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Supabase
+- Plausible analytics support
+- ESLint
 
-## React Compiler
+## Local Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Install dependencies:
 
-## Expanding the ESLint configuration
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+On Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+3. Fill the Supabase and optional analytics values in `.env`:
+
+```env
+VITE_SUPABASE_URL=
+VITE_SUPABASE_ANON_KEY=
+VITE_PLAUSIBLE_DOMAIN=
+```
+
+4. Start the dev server:
+
+```bash
+npm run dev
+```
+
+## Supabase Tables
+
+The app expects two tables:
+
+- `portfolio_projects`: read by the public site for project cards.
+- `portfolio_messages`: receives contact form submissions.
+
+See `SUPABASE.md` for full SQL, including table definitions and row-level security policies.
+
+## RLS Requirements
+
+Enable RLS on both tables.
+
+- Allow anonymous `SELECT` on `portfolio_projects`.
+- Allow anonymous `INSERT` on `portfolio_messages`.
+- Do not allow anonymous users to read contact messages.
+
+## Deploy Notes
+
+- Build with `npm run build`.
+- Deploy the generated `dist/` directory.
+- Configure `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in the hosting provider.
+- Add `VITE_PLAUSIBLE_DOMAIN` only when Plausible analytics should be active.
+- Add `public/cv.pdf` before re-enabling the CV link in `Hero.jsx`.

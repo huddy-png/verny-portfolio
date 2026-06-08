@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
+import { revealItemVariants } from "../revealVariants";
+import RevealOnScroll from "./RevealOnScroll";
 
 function Services() {
   const services = [
@@ -30,7 +32,7 @@ function Services() {
 
   return (
     <section id="services" className="py-24 bg-surface text-foreground">
-      <div className="max-w-6xl mx-auto px-4">
+      <RevealOnScroll className="max-w-6xl mx-auto px-4" stagger>
         <div className="mb-10">
           <p className="text-primary uppercase tracking-wide text-sm">Services</p>
           <h2 className="text-3xl md:text-4xl font-heading font-bold">
@@ -44,17 +46,18 @@ function Services() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service) => (
-            <motion.div
+            <Motion.div
               key={service.title}
+              variants={revealItemVariants}
               whileHover={{ y: -6 }}
               className="bg-surface/70 border border-border/20 rounded-2xl p-6"
             >
               <h3 className="text-lg font-semibold mb-2">{service.title}</h3>
               <p className="text-muted text-sm">{service.detail}</p>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   );
 }

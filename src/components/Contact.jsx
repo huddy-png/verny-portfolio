@@ -1,6 +1,7 @@
+import { motion as Motion } from "framer-motion";
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { supabase } from "../supabaseClient";
+import RevealOnScroll from "./RevealOnScroll";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ function Contact() {
   });
 
   const [status, setStatus] = useState("");
+  const [statusType, setStatusType] = useState("");
   const [loading, setLoading] = useState(false);
   const [honeypot, setHoneypot] = useState("");
 
@@ -29,21 +31,25 @@ function Contact() {
     e.preventDefault();
     setLoading(true);
     setStatus("");
+    setStatusType("");
 
     if (honeypot) {
       setStatus("Submission blocked. Please try again.");
+      setStatusType("error");
       setLoading(false);
       return;
     }
 
     if (!isValidEmail(formData.email)) {
       setStatus("Please enter a valid email address.");
+      setStatusType("error");
       setLoading(false);
       return;
     }
 
     if (!supabase) {
       setStatus("Contact service is unavailable right now.");
+      setStatusType("error");
       setLoading(false);
       return;
     }
@@ -60,14 +66,17 @@ function Contact() {
 
       if (error) {
         setStatus("Something went wrong. Please try again.");
+        setStatusType("error");
         return;
       }
 
       setStatus("Message sent successfully.");
+      setStatusType("success");
       setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (err) {
       console.error(err);
       setStatus("Unexpected error. Please try again.");
+      setStatusType("error");
     } finally {
       setLoading(false);
     }
@@ -75,14 +84,14 @@ function Contact() {
 
   return (
     <section id="contact" className="py-24 bg-surface text-foreground">
-      <div className="container max-w-4xl mx-auto px-4">
-        <motion.div
+      <RevealOnScroll className="container max-w-4xl mx-auto px-4">
+        <Motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-center mb-4">
-            Let’s Work Together
+            Let's Work Together
           </h2>
 
           <p className="text-center text-muted max-w-2xl mx-auto mb-8">
@@ -91,7 +100,7 @@ function Contact() {
             hours.
           </p>
 
-          <motion.form
+          <Motion.form
             onSubmit={handleSubmit}
             className="w-full bg-surface/70 p-6 rounded-2xl shadow-lg"
             whileTap={{ scale: 1 }}
@@ -139,13 +148,15 @@ function Contact() {
               />
 
               <div className="flex items-center md:justify-end">
-                <button
+                <Motion.button
                   type="submit"
                   disabled={loading}
                   className="ml-auto bg-primary hover:opacity-95 text-black font-semibold px-6 py-3 rounded-lg shadow-md"
+                  whileHover={{ scale: loading ? 1 : 1.04 }}
+                  whileTap={{ scale: loading ? 1 : 0.97 }}
                 >
                   {loading ? "Sending..." : "Send Message"}
-                </button>
+                </Motion.button>
               </div>
             </div>
 
@@ -178,15 +189,27 @@ function Contact() {
             ></textarea>
 
             {status && (
-              <p
-                className="mt-3 text-center text-primary font-medium"
+              <div
+                className={`mt-4 rounded-lg border px-4 py-3 text-center font-medium ${
+                  statusType === "success"
+                    ? "border-green-400/40 bg-green-500/10 text-green-300"
+                    : "border-red-400/40 bg-red-500/10 text-red-300"
+                }`}
                 role="status"
                 aria-live="polite"
               >
-                {status}
-              </p>
+                <p>{status}</p>
+                {statusType === "error" && (
+                  <a
+                    className="mt-2 inline-block underline"
+                    href="mailto:emilliojohnverny@gmail.com"
+                  >
+                    Email me directly
+                  </a>
+                )}
+              </div>
             )}
-          </motion.form>
+          </Motion.form>
 
           <div className="mt-6 text-center text-muted">
             <a
@@ -210,8 +233,8 @@ function Contact() {
               Chat on WhatsApp
             </a>
           </div>
-        </motion.div>
-      </div>
+        </Motion.div>
+      </RevealOnScroll>
     </section>
   );
 }

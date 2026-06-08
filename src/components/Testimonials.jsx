@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 
 function Testimonials() {
   const testimonials = [
@@ -37,14 +37,14 @@ function Testimonials() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((item) => (
-            <motion.div
+            <Motion.div
               key={item.name}
               whileHover={{ y: -6 }}
               className="bg-surface/70 border border-border/20 rounded-2xl p-6"
             >
-              <p className="text-muted mb-4">“{item.quote}”</p>
+              <p className="text-muted mb-4">"{item.quote}"</p>
               <p className="text-sm font-semibold">{item.name}</p>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
       </div>

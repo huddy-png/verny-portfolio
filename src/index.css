@@ -52,6 +52,37 @@ body::before {
     linear-gradient(120deg, rgb(var(--color-bg) / 1), rgb(var(--color-bg) / 0.92));
 }
 
+.app-shell {
+  --cx: 50vw;
+  --cy: 50vh;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.cursor-spotlight {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 5;
+  transform: translate(calc(var(--cx) - 200px), calc(var(--cy) - 200px));
+  background: radial-gradient(circle, rgb(var(--color-primary) / 0.07), transparent 70%);
+}
+
+.page-load-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3000;
+  width: 100%;
+  height: 3px;
+  background: rgb(var(--color-primary) / 1);
+}
+
 a {
   text-decoration: none;
   color: inherit;
@@ -65,17 +96,16 @@ a {
 
 .skip-link {
   position: absolute;
-  left: -999px;
-  top: 16px;
+  top: -40px;
+  left: 0;
   z-index: 2000;
   background: rgb(var(--color-primary) / 1);
-  color: #000000;
-  padding: 10px 16px;
-  border-radius: 8px;
+  color: #ffffff;
+  padding: 8px 16px;
 }
 
 .skip-link:focus {
-  left: 16px;
+  top: 0;
 }
 
 :focus-visible {
@@ -114,6 +144,14 @@ a {
   padding: 20px 0;
   border-bottom: 1px solid rgb(var(--color-border) / 0.2);
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled {
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(var(--color-border) / 0.28);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
 }
 
 .nav-content {
@@ -132,6 +170,12 @@ a {
   display: flex;
   gap: 22px;
   list-style: none;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .nav-links a {
@@ -165,6 +209,64 @@ a {
   display: flex;
   align-items: center;
   padding-top: 60px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: radial-gradient(circle, rgb(var(--color-foreground) / 1) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+}
+
+.hero-orb {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.06;
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hero-orb-one {
+  top: 6%;
+  left: -8%;
+  background: rgb(var(--color-primary) / 1);
+}
+
+.hero-orb-two {
+  top: 18%;
+  right: 5%;
+  background: rgb(var(--color-accent) / 1);
+  animation-delay: 2s;
+}
+
+.hero-orb-three {
+  bottom: 8%;
+  left: 28%;
+  background: rgb(var(--color-primary) / 1);
+  animation-delay: 4s;
+}
+
+.hero-orb-four {
+  bottom: -12%;
+  right: -6%;
+  background: rgb(var(--color-accent) / 1);
+  animation-delay: 6s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
 }
 
 .hero-content {
@@ -276,6 +378,33 @@ a {
 
 .theme-toggle:hover {
   border-color: rgb(var(--color-primary) / 0.8);
+}
+
+.menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgb(var(--color-border) / 0.3);
+  background: rgb(var(--color-surface) / 0.7);
+  color: rgb(var(--color-foreground) / 1);
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.mobile-menu {
+  display: none;
 }
 
 .theme-dot {
@@ -444,13 +573,38 @@ a {
 
 @media (max-width: 768px) {
   .nav-content {
-    flex-direction: column;
     gap: 12px;
   }
 
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+  .nav-links-desktop {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: min(90%, 360px);
+    margin: 12px auto 0;
+    padding: 12px;
+    border: 1px solid rgb(var(--color-border) / 0.25);
+    border-radius: 14px;
+    background: rgb(var(--color-surface) / 0.96);
+  }
+
+  .mobile-menu a {
+    padding: 12px;
+    border-radius: 10px;
+    color: rgb(var(--color-foreground) / 0.88);
+  }
+
+  .mobile-menu a:hover {
+    background: rgb(var(--color-primary) / 0.12);
+    color: rgb(var(--color-foreground) / 1);
   }
 
   .hero {

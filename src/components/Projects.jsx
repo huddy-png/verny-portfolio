@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import { supabase } from "../supabaseClient";
+import { revealItemVariants } from "../revealVariants";
+import RevealOnScroll from "./RevealOnScroll";
 
 const PROJECTS = [
   {
@@ -33,8 +35,6 @@ const PROJECTS = [
     category: "Landing Page",
   },
 ];
-
-const FILTERS = ["All", "Platforms", "Portfolio", "Landing Page"];
 
 function Projects() {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -87,23 +87,21 @@ function Projects() {
     return ["All", ...categories];
   }, [projectData]);
 
-  useEffect(() => {
-    if (!dynamicFilters.includes(activeFilter)) {
-      setActiveFilter("All");
-    }
-  }, [activeFilter, dynamicFilters]);
+  const currentFilter = dynamicFilters.includes(activeFilter)
+    ? activeFilter
+    : "All";
 
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "All") {
+    if (currentFilter === "All") {
       return projectData;
     }
 
-    return projectData.filter((project) => project.category === activeFilter);
-  }, [activeFilter, projectData]);
+    return projectData.filter((project) => project.category === currentFilter);
+  }, [currentFilter, projectData]);
 
   return (
     <section id="projects" className="py-24 bg-bg text-foreground">
-      <div className="max-w-6xl mx-auto px-4">
+      <RevealOnScroll className="max-w-6xl mx-auto px-4" stagger>
         <div className="flex items-end justify-between gap-6 mb-10 flex-wrap">
           <div>
             <p className="text-primary text-sm uppercase tracking-wide">
@@ -114,34 +112,37 @@ function Projects() {
             </h2>
           </div>
           <a href="#contact" className="text-sm text-muted hover:text-foreground">
-            Need something similar? Let’s talk →
+            Need something similar? Let's talk
           </a>
         </div>
 
         <div className="flex flex-wrap gap-3 mb-8">
           {dynamicFilters.map((filter) => (
-            <button
+            <Motion.button
               key={filter}
               type="button"
               onClick={() => setActiveFilter(filter)}
-              aria-pressed={activeFilter === filter}
+              aria-pressed={currentFilter === filter}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
               className={`px-4 py-2 rounded-full text-sm border transition ${
-                activeFilter === filter
+                currentFilter === filter
                   ? "bg-primary text-black border-primary"
                   : "border-border/40 text-muted hover:border-primary"
               }`}
             >
               {filter}
-            </button>
+            </Motion.button>
           ))}
         </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
-              <motion.article
+              <Motion.article
                 layout
                 key={project.title}
+                variants={revealItemVariants}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
@@ -187,15 +188,15 @@ function Projects() {
                     </a>
                   )}
                 </div>
-              </motion.article>
+              </Motion.article>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </Motion.div>
 
         {loading && (
           <p className="text-muted text-sm mt-6">Loading projects...</p>
         )}
-      </div>
+      </RevealOnScroll>
     </section>
   );
 }

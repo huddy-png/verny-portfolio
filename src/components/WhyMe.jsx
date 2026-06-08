@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
+import { revealItemVariants } from "../revealVariants";
+import RevealOnScroll from "./RevealOnScroll";
 
 function WhyMe() {
   const points = [
@@ -22,7 +24,7 @@ function WhyMe() {
 
   return (
     <section className="py-24 bg-bg text-foreground">
-      <div className="max-w-6xl mx-auto px-4">
+      <RevealOnScroll className="max-w-6xl mx-auto px-4" stagger>
         <div className="mb-10">
           <p className="text-primary uppercase tracking-wide text-sm">
             Why work with me
@@ -38,17 +40,18 @@ function WhyMe() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {points.map((point) => (
-            <motion.div
+            <Motion.div
               key={point.title}
+              variants={revealItemVariants}
               whileHover={{ y: -6 }}
               className="bg-surface/70 border border-border/20 rounded-2xl p-6"
             >
               <h3 className="text-lg font-semibold mb-2">{point.title}</h3>
               <p className="text-muted text-sm">{point.detail}</p>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
-      </div>
+      </RevealOnScroll>
     </section>
   );
 }
